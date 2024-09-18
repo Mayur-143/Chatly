@@ -1,0 +1,19 @@
+<div x-data="{ modal_open: false }">
+    <!-- Overlay when modal is open -->
+    <div x-show="modal_open" x-cloak class="fixed inset-0 bg-gray-800 bg-opacity-80 z-50"></div>
+
+    <!-- Modal content -->
+    <div x-show="modal_open" x-cloak class="fixed inset-0 z-50 flex justify-center items-center p-6">
+        <div @click.away="modal_open = false" class="bg-white rounded-lg shadow-xl p-6">
+            <h1 class="text-xl font-semibold mb-4">Leave this chat?</h1>
+            <form method="POST" action="{% url 'chatroom-leave' chat_group.group_name %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Yes, I want to leave</button>
+                <button type="button" class="bg-gray-300 text-black px-4 py-2 rounded ml-2 cursor-pointer" @click="modal_open = false">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Trigger button -->
+<a class="button button-gray" @click="modal_open = true">Leave Group</a>
